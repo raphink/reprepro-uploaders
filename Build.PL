@@ -38,7 +38,7 @@ my $builder = Module::Build->new(
     create_makefile_pl => 'traditional',
     meta_merge => {
        resources   => {
-           repository => '',
+           repository => 'https://github.com/raphink/reprepro-uploaders',
        },
     },
 );
