@@ -1,3 +1,7 @@
-2011-11-XX  Raphaël Pinson v0.001
+2011-11-30  Raphaël Pinson v0.002
+
+	* Report check errors in the $uploaders->{errors} array.
+
+2011-11-29  Raphaël Pinson v0.001
 
 	* Initial release
