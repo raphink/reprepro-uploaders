@@ -1,6 +1,6 @@
 use warnings;
 use strict;
-use Test::More tests => 9;
+use Test::More tests => 13;
 use Reprepro::Uploaders;
 
 my $uploaders = Reprepro::Uploaders->new(
@@ -46,7 +46,9 @@ $test_package{key} = "12AB34CD";
 $perl_package{key} = "12AB34CD";
 $bin_package{key}  = "12AB34CD";
 is($uploaders->check_package(\%test_package), 0, "Autobuilders uploads only binaries");
+is($#{$uploaders->{errors}}, 6, "6 errors found");
 is($uploaders->check_package(\%perl_package), 0, "Autobuilders uploads only binaries");
+is($#{$uploaders->{errors}}, 3, "3 errors found");
 is($uploaders->check_package(\%bin_package), 1, "Autobuilders uploads only binaries");
 
 
@@ -54,6 +56,8 @@ $test_package{key} = "ABCD1234";
 $perl_package{key} = "ABCD1234";
 $bin_package{key}  = "ABCD1234";
 is($uploaders->check_package(\%test_package), 0, "Perl dev uploads specific packages");
+is($#{$uploaders->{errors}}, 3, "3 errors found");
 is($uploaders->check_package(\%perl_package), 1, "Perl dev uploads specific packages");
 is($uploaders->check_package(\%bin_package), 0, "Perl dev uploads specific packages");
+is($#{$uploaders->{errors}}, 3, "3 errors found");
 

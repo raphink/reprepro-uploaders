@@ -78,6 +78,7 @@ sub check_package {
    my $key_path = "/files/$self->{uploaders}/allow[$key_condition]";
 
    $self->{package} = $package;
+   @{$self->{errors}} = [];
 
    foreach my $allow ($self->{aug}->match($key_path)) {
       return 1 if ($self->check_allow($allow));
@@ -165,6 +166,7 @@ sub check_source {
       return 1;
    } else {
       print "V: Check $field with $value=$source failed",$/ if $self->{verbose};
+      push @{$self->{errors}}, "Check $field with $value=$source failed";
       return 0;
    }
 }
@@ -198,6 +200,7 @@ sub check_items {
             next ITEM;
          } else {
             print "V: Check $field with $value=$item failed",$/ if $self->{verbose};
+            push @{$self->{errors}}, "Check $field with $value=$item failed";
          }
       }
    }
