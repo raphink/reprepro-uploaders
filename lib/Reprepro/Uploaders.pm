@@ -23,7 +23,7 @@ use base qw(Class::Accessor);
 use Config::Augeas qw(get match);
 use Text::Glob qw(match_glob);
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 
 my %conditions_types = (
    'source' 			=> \&check_source,
@@ -78,9 +78,16 @@ sub check_package {
    my $key_path = "/files/$self->{uploaders}/allow[$key_condition]";
 
    $self->{package} = $package;
-   @{$self->{errors}} = [];
+   @{$self->{errors}} = ();
 
-   foreach my $allow ($self->{aug}->match($key_path)) {
+   my @allows = $self->{aug}->match($key_path);
+
+   if ($#allows < 0) {
+      push @{$self->{errors}}, "Unknown key $key";
+      return 0;
+   }
+
+   foreach my $allow (@allows) {
       return 1 if ($self->check_allow($allow));
    }
 
