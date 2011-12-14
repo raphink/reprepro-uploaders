@@ -169,11 +169,11 @@ sub check_source {
    my $value = $aug->get("$condition/or");
 
    if (match_glob($value, $source)) {
-      print "V: Check $field with $value=$source passed",$/ if $self->{verbose};
+      print "V: $field $source matches $value",$/ if $self->{verbose};
       return 1;
    } else {
-      print "V: Check $field with $value=$source failed",$/ if $self->{verbose};
-      push @{$self->{errors}}, "Check $field with $value=$source failed";
+      print "V: $field $source does not match $value",$/ if $self->{verbose};
+      push @{$self->{errors}}, "$field $source does not match $value";
       return 0;
    }
 }
@@ -197,17 +197,20 @@ sub check_items {
    my $accepted = -1;
    my @items = @{$package->{$field}};
 
+   my $field_singular = $field;
+   $field_singular =~ s|s$||;
+
    ITEM: foreach my $item (@items) {
       foreach my $value_n ($aug->match("$condition/or")) {
          my $value = $aug->get($value_n);
          if (match_glob($value, $item)) {
             return 1 if ($contain);
             $accepted++;
-            print "V: Check $field with $value=$item passed",$/ if $self->{verbose};
+            print "V: $field_singular $item matches $value",$/ if $self->{verbose};
             next ITEM;
          } else {
-            print "V: Check $field with $value=$item failed",$/ if $self->{verbose};
-            push @{$self->{errors}}, "Check $field with $value=$item failed";
+            print "V: $field_singular $item does not match $value",$/ if $self->{verbose};
+            push @{$self->{errors}}, "$field_singular $item does not match $value";
          }
       }
    }
