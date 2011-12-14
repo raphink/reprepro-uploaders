@@ -1,3 +1,7 @@
+2011-12-14  Raphaël Pinson v0.004
+
+	* Improve errors.
+
 2011-12-01  Raphaël Pinson v0.003
 
 	* Report unknown key errors.

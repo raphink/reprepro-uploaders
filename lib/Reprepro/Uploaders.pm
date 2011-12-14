@@ -23,7 +23,7 @@ use base qw(Class::Accessor);
 use Config::Augeas qw(get match);
 use Text::Glob qw(match_glob);
 
-our $VERSION = '0.003';
+our $VERSION = '0.004';
 
 my %conditions_types = (
    'source' 			=> \&check_source,
