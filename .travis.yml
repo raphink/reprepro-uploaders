@@ -1,0 +1,10 @@
+language: perl
+perl:
+  - "5.16"
+  - "5.14"
+  - "5.12"
+install:
+  # Use latest Augeas
+  - sudo add-apt-repository -y ppa:raphink/augeas
+  - sudo apt-get update
+  - sudo apt-get install libaugeas-dev
