@@ -3,6 +3,7 @@ perl:
   - "5.16"
   - "5.14"
   - "5.12"
+  - "5.10"
 install:
   # Use latest Augeas
   - sudo add-apt-repository -y ppa:raphink/augeas
