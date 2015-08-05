@@ -22,6 +22,17 @@ test Reprepro_Uploaders.entry get "allow source 'bash' by anybody\n" =
     { "and" { "or" = "source" { "or" = "bash" } } }
     { "by" = "anybody" } }
 
+(* Test: Reprepro_Uploaders.entry
+     Check the field distribution *)
+test Reprepro_Uploaders.entry get
+    "allow      distribution 'sid' by anybody\n" =
+
+  { "allow"
+    { "and"
+      { "or" = "distribution"
+              { "or" = "sid" } } }
+    { "by" = "anybody" } }
+
 (* Simple 'and' *)
 test Reprepro_Uploaders.entry get "allow source 'bash' and binaries contain 'bash-doc' by anybody\n" =
   { "allow"

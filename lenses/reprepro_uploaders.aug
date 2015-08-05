@@ -56,6 +56,7 @@ let condition_re =
   | "sections"
   | "binaries"
   | "architectures"
+  | "distribution"
 
 (* View: condition_field
    A single condition field is an 'or' node.
