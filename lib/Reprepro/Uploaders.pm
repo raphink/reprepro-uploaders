@@ -30,7 +30,8 @@ my %conditions_types = (
    'byhand' 			=> \&check_byhand,
    'sections' 			=> \&check_items,
    'binaries' 			=> \&check_items,
-   'architectures'   => \&check_items,
+   'architectures' 		=> \&check_items,
+   'distribution'		=> \&check_items,
 );
 
 sub new {
@@ -195,10 +196,16 @@ sub check_items {
    $contain = 1 if ($aug->match("$condition/contain"));
 
    my $accepted = -1;
-   my @items = @{$package->{$field}};
-
    my $field_singular = $field;
+
    $field_singular =~ s|s$||;
+   if (! exists($package->{$field})) {
+      print "V: $field_singular is missing from checks",$/ if $self->{verbose};
+      push @{$self->{errors}}, "$field_singular is missing from checks";
+      return;
+   }
+
+   my @items = @{$package->{$field}};
 
    ITEM: foreach my $item (@items) {
       foreach my $value_n ($aug->match("$condition/or")) {
@@ -247,6 +254,7 @@ __END__
       key            => 'ABCD1234',
       architectures  => [ 'source' ],
       sections       => [ 'main/perl' ],
+      distribution   => [ 'sid' ],
    );
 
    print "Package accepted".$/ if ($uploaders->check_package(\%package));

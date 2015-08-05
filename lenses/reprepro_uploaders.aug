@@ -8,13 +8,16 @@ About: Reference
   This lens tries to keep as close as possible to `man 1 reprepro` where possible.
 
 About: License
-   This file is licenced under the LGPLv2+, like the rest of Augeas.
+   This file is licenced under the LGPL v2+, like the rest of Augeas.
 
 About: Lens Usage
    See <lns>.
 
 About: Configuration files
    This lens applies to reprepro's uploaders files.
+
+About: Examples
+   The <Test_Reprepro_Uploaders> file contains various examples and tests.
 *)
 
 module Reprepro_Uploaders =
@@ -56,6 +59,7 @@ let condition_re =
   | "sections"
   | "binaries"
   | "architectures"
+  | "distribution"
 
 (* View: condition_field
    A single condition field is an 'or' node.
